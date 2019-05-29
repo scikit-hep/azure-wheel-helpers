@@ -24,6 +24,8 @@ TLDR: Python 2.7, 3.6, and 3.7 on all platforms, along with 3.5 on Linux.
 
 ### Usage
 
+> Warning: Azure does not seem to recognize git submodules during the configure phase. Please copy the contents directly into your repository until this is resolved.
+
 This repository should be a git submodule, and should reside in `/.ci` in your project. To add it:
 
 ```bash
