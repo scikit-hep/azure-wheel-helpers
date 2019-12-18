@@ -4,15 +4,15 @@ This repository holds a collection of wheel helpers designed by the [Scikit-HEP]
 
 ### Supported platforms and caveats
 
-TLDR: Python 2.7, 3.6, and 3.7 on all platforms, along with 3.5 on Linux.
+TLDR: Python 2.7, 3.6, 3.7, and 3.8  on all platforms, along with 3.5 on Linux.
 
 | System | Arch | Python versions |
 |---------|-----|------------------|
 | SDist (all) | all |  any (non-binary distribution) |
-| ManyLinux1 (custom GCC 8.3) | 64 & 32-bit | 2.7, 3.5, 3.6, 3.7 |
-| ManyLinux2010 | 64-bit | 2.7, 3.5, 3.6, 3.7 |
-| macOS 10.9+ | 64-bit | 2.7, 3.6, 3.7 |
-| Windows | 64 & 32-bit | 2.7, 3.6, 3.7 |
+| ManyLinux1 (custom GCC 8.3) | 64 & 32-bit | 2.7, 3.5, 3.6, 3.7, 3.8 |
+| ManyLinux2010 | 64-bit | 2.7, 3.5, 3.6, 3.7, 3.8 |
+| macOS 10.9+ | 64-bit | 2.7, 3.6, 3.7, 3.8 |
+| Windows | 64 & 32-bit | 2.7, 3.6, 3.7, 3.8 |
 
 * Linux: Python 3.4 is not supported because Numpy does not support it either.
 * manylinux1: Optional support for GCC 9.1 using docker image; should work but can't be called directly other compiled extensions unless they do the same thing (think that's the main caveat). Supporting 32 bits because it's there for Numpy and PPA for now.
@@ -38,22 +38,20 @@ You should make a copy of the template pipeline and make local edits:
 cp .ci/azure-wheel-helpers/azure-pipeline-build.yml .ci/azure-pipeline-build.yml
 ```
 
-Make sure you enable this path in Azure as the pipeline, as well as turn on recursive checkouts. See [the post here][iscinumpy/wheels] for more details.
+Make sure you enable this path in Azure as the pipeline. See [the post here][iscinumpy/wheels] for more details.
 
-The variables you should set are:
+You must set the variables at the top of this file, and remove any configurations (like Windows) that you do not support:
 
 ```yaml
 variables:
   package_name: my_package    # This is the output name, - is replaced by _
   many_linux_base: "quay.io/pypa/manylinux1_" # Could also be "skhep/manylinuxgcc-"
+  dev_requirements_file: .ci/azure-wheel-helpers/empty-requirements.txt
+  test_requirements_file: .ci/azure-wheel-helpers/empty-requirements.txt
 ```
-
-> Note: If you do not need local edits, you can also set the variables in the Azure GUI and instead make a symbolic link.
-
 
 You can adjust the rest of the template as needed. If you need a non-standard procedure, you can change the target of the `template` inputs to a local file.
 
-The Linux build will install `.ci/dev-requirements.txt` if that exists, otherwise `dev-requirements.txt`. The other builds can be explicitly controlled.
 
 ### License
 
@@ -67,3 +65,4 @@ or <https://github.com/scikit-hep/azure-wheel-helpers> for details.
 [Azure DevOps]: https://dev.azure.com
 [iscinumpy/wheels]: https://iscinumpy.gitlab.io/post/azure-devops-python-wheels/
 [msvc2017]: https://www.microsoft.com/en-us/download/details.aspx?id=48145
+
