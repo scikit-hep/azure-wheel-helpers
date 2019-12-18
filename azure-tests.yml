@@ -9,10 +9,10 @@ steps:
   displayName: Install Azure testing requirements
 
 - script: |
-    python -m pip install -r .ci/requirements-test.txt
+    python -m pip install -r $(test_requirements_file)
   displayName: Install testing requirements
 
 - script: |
-    python -m pytest --cov $(project) --cov-report html
+    python -m pytest --cov $(project_name) --cov-report html
   workingDirectory: tests
   displayName: Test with pytest

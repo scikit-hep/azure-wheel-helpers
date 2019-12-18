@@ -6,7 +6,15 @@
 
 steps:
 - script: |
-    docker run -e NPY_NUM_BUILD_JOBS=4 -e PLAT=$(plat) -e package_name=$(package_name) --rm -v `pwd`:/io $(image) /io/.ci/azure-wheel-helpers/build-wheels.sh
+    docker run --rm \
+      -e NPY_NUM_BUILD_JOBS=4 \
+      -e PLAT=$(plat) \
+      -e package_name=$(package_name) \
+      -e dev_requirements_file='$(dev_requirements_file)' \
+      -e test_requirements_file='$(test_requirements_file)' \
+      -v $PWD:/io \
+      $(image) \
+      /io/.ci/azure-wheel-helpers/build-wheels.sh
   displayName: Build wheels
 
 - script: |

@@ -24,14 +24,13 @@ TLDR: Python 2.7, 3.6, and 3.7 on all platforms, along with 3.5 on Linux.
 
 ### Usage
 
-> Warning: Azure does not seem to recognize git submodules during the configure phase. Please copy the contents directly into your repository until this is resolved.
+> Azure does not recognize git submodules during the configure phase. Therefore, we are using git subtree instead.
 
-This repository should be a git submodule, and should reside in `/.ci` in your project. To add it:
+This repository should reside in `/.ci` in your project. To add it:
 
 ```bash
-git submodule add ../../scikit-hep/azure-wheel-helpers.git .ci/azure-wheel-helpers
+git subtree add --prefix .ci/azure-wheel-helpers git@github.com:scikit-hep/azure-wheel-helpers.git master --squash
 ```
-
 
 You should make a copy of the template pipeline and make local edits:
 
@@ -53,6 +52,8 @@ variables:
 
 
 You can adjust the rest of the template as needed. If you need a non-standard procedure, you can change the target of the `template` inputs to a local file.
+
+The Linux build will install `.ci/dev-requirements.txt` if that exists, otherwise `dev-requirements.txt`. The other builds can be explicitly controlled.
 
 ### License
 

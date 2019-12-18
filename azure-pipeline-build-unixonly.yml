@@ -46,7 +46,7 @@ jobs:
         versionSpec: '3.8'
     - script: |
         python -m pip install --upgrade pip
-        python -m pip install setuptools
+        python -m pip install setuptools numpy
       displayName: Install sdist deps
     - script: python setup.py sdist
       displayName: Prepare sdist
@@ -91,41 +91,6 @@ jobs:
         python.version: '3.8'
   pool:
     vmImage: 'macOS-latest'
-  steps:
-    - template: azure-wheel-helpers/azure-setup.yml
-    - template: azure-wheel-helpers/azure-steps.yml
-    - template: azure-wheel-helpers/azure-tests.yml
-    - template: azure-wheel-helpers/azure-publish-dist.yml
-
-- job: Windows
-  strategy:
-    matrix:
-      Python27:
-        python.version: '2.7'
-        python.architecture: 'x64'
-      Python36:
-        python.version: '3.6'
-        python.architecture: 'x64'
-      Python37:
-        python.version: '3.7'
-        python.architecture: 'x64'
-      Python38:
-        python.version: '3.8'
-        python.architecture: 'x64'
-      Python27_32:
-        python.version: '2.7'
-        python.architecture: 'x86'
-      Python36_32:
-        python.version: '3.6'
-        python.architecture: 'x86'
-      Python37_32:
-        python.version: '3.7'
-        python.architecture: 'x86'
-      Python38_32:
-        python.version: '3.8'
-        python.architecture: 'x86'
-  pool:
-    vmImage: 'windows-latest'
   steps:
     - template: azure-wheel-helpers/azure-setup.yml
     - template: azure-wheel-helpers/azure-steps.yml
