@@ -54,6 +54,15 @@ variables:
 
 You can adjust the rest of the template as needed. If you need a non-standard procedure, you can change the target of the `template` inputs to a local file. You must have a `test_requirments` file, as the manylinux wheel install test does not pull requirements when testing, and at least pytest is required.
 
+
+#### Updates
+
+To update, run:
+
+```bash
+git subtree pull --prefix .ci/azure-wheel-helpers git@github.com:scikit-hep/azure-wheel-helpers.git master --squash
+```
+
 ### Common needs
 
 #### Using numpy with Cython
