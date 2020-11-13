@@ -1,3 +1,11 @@
+# DEPRECATED: PLEASE USE cibuildwheel instead!
+
+[cibuildwheel](https://cibuildwheel.readthedocs.io/en/stable/) covers everything
+this could do, and more, for all CI platforms. We help maintain cibuildwheel now,
+and development effort is directed there instead of maintaining this repo. See
+[our guide](https://scikit-hep.org/developer/gha_wheels) for details on using
+cibuildwheel!
+
 ## Azure Wheel Helpers
 
 This repository holds a collection of wheel helpers designed by the
